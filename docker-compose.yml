@@ -1,0 +1,22 @@
+# Local research database. Source of truth during all research phases.
+# Supabase is used ONLY for the final read-only hosted demo (CLAUDE.md §7).
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: chronosgraph-db
+    environment:
+      POSTGRES_USER: chronos
+      POSTGRES_PASSWORD: chronos
+      POSTGRES_DB: chronosgraph
+    ports:
+      - "5433:5432"
+    volumes:
+      - chronos_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U chronos -d chronosgraph"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  chronos_pgdata:

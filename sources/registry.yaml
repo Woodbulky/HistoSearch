@@ -1,0 +1,67 @@
+# Source registry — human-owned approval record.
+# Claude Code MUST NOT change approval_status. Only the researcher approves a source.
+project: ChronosGraph
+
+study_window:
+  start: "1947-08-01"
+  end: "1947-12-31"
+  note: >-
+    Initial study window from CLAUDE.md §4. The corpus is frozen for the main
+    experiment once the Phase 1 acquisition manifest is finalized.
+
+# Set to true only when the researcher freezes the corpus (end of Phase 1).
+frozen: false
+
+sources:
+  - id: uk_hansard
+    name: UK Hansard (House of Commons and House of Lords)
+    kind: primary
+    language: en
+    approval_status: pending_approval
+    base_url: https://api.parliament.uk/historic-hansard/
+    license_note: >-
+      Hansard is published under the Open Parliament Licence. Confirm the exact
+      licence text applying to the 1947 volumes before freezing the corpus.
+    access_requires_credentials: false
+    notes: >-
+      Sitting days in the study window. One speaker intervention = one passage.
+
+  - id: cad_india
+    name: Constituent Assembly Debates of India
+    kind: primary
+    language: en
+    approval_status: pending_approval
+    base_url: https://eparlib.nic.in/
+    license_note: >-
+      Government of India proceedings. Confirm reuse terms of the specific digital
+      edition (eParlib / Lok Sabha digital library) before freezing the corpus.
+    access_requires_credentials: false
+    notes: >-
+      Pairs with Hansard: the same events discussed from different institutional
+      and political positions (CLAUDE.md §4).
+
+  # Planned expansion — added only after the core pipeline works (CLAUDE.md §4).
+  - id: nai_abhilekh
+    name: National Archives of India / Abhilekh Patal
+    kind: primary
+    language: en
+    approval_status: planned
+    base_url: https://www.abhilekh-patal.in/
+    access_requires_credentials: true
+    notes: Deferred until the Hansard x CAD pipeline is validated.
+
+  - id: nehru_archive
+    name: The Nehru Archive
+    kind: primary
+    language: en
+    approval_status: planned
+    base_url: https://www.nehruarchive.in/
+    notes: Deferred.
+
+  - id: gandhi_heritage
+    name: Gandhi Heritage Portal
+    kind: primary
+    language: en
+    approval_status: planned
+    base_url: https://www.gandhiheritageportal.org/
+    notes: Deferred. A likely first Hindi-language source for Phase 8.

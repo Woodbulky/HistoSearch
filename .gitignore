@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.uv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Environment
+.env
+.env.local
+
+# Data — raw sources are immutable but NOT committed (see data/README.md)
+data/raw/**
+!data/raw/.gitkeep
+data/interim/**
+!data/interim/.gitkeep
+data/processed/**
+!data/processed/.gitkeep
+data/cache/**
+!data/cache/.gitkeep
+
+# Manifests ARE committed (provenance record)
+!data/manifest.jsonl
+
+# Experiments: configs committed, outputs are not
+experiments/**/outputs/
+experiments/**/checkpoints/
+mlruns/
+
+# Node / frontend
+node_modules/
+.next/
+out/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
