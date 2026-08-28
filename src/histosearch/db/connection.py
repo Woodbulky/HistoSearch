@@ -7,7 +7,7 @@ from contextlib import contextmanager
 
 import psycopg
 
-from chronosgraph.config import get_settings
+from histosearch.config import get_settings
 
 
 @contextmanager

@@ -1,24 +1,24 @@
-"""ChronosGraph command line entry point.
+"""HistoSearch command line entry point.
 
-chronos doctor      environment + phase-gate readiness report
-chronos migrate     apply database migrations
-chronos check       run research invariant checks
-chronos sources     show the source registry approval state
+histosearch doctor      environment + phase-gate readiness report
+histosearch migrate     apply database migrations
+histosearch check       run research invariant checks
+histosearch sources     show the source registry approval state
 """
 
 from __future__ import annotations
 
 import typer
 
-from chronosgraph.config import get_settings
+from histosearch.config import get_settings
 
-app = typer.Typer(add_completion=False, help="ChronosGraph research CLI")
+app = typer.Typer(add_completion=False, help="HistoSearch research CLI")
 
 
 @app.command()
 def doctor() -> None:
     """Report environment readiness without changing anything."""
-    from chronosgraph.utils.doctor import report
+    from histosearch.utils.doctor import report
 
     ok = report()
     raise typer.Exit(code=0 if ok else 1)
@@ -27,7 +27,7 @@ def doctor() -> None:
 @app.command()
 def migrate() -> None:
     """Apply pending database migrations."""
-    from chronosgraph.db.migrate import migrate as run
+    from histosearch.db.migrate import migrate as run
 
     run()
 
@@ -35,7 +35,7 @@ def migrate() -> None:
 @app.command()
 def check() -> None:
     """Run the research invariant checks. Non-zero exit means a violation."""
-    from chronosgraph.db.check import main
+    from histosearch.db.check import main
 
     raise typer.Exit(code=main())
 
@@ -43,7 +43,7 @@ def check() -> None:
 @app.command()
 def sources() -> None:
     """Show registered sources and their human-owned approval status."""
-    from chronosgraph.sources import load_registry
+    from histosearch.sources import load_registry
 
     reg = load_registry()
     typer.echo(f"study window: {reg.study_window.start} .. {reg.study_window.end}")

@@ -9,8 +9,8 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
-from chronosgraph.config import get_settings
-from chronosgraph.db.connection import connect
+from histosearch.config import get_settings
+from histosearch.db.connection import connect
 
 BOOTSTRAP = """
 CREATE TABLE IF NOT EXISTS schema_migrations (

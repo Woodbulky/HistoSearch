@@ -10,8 +10,8 @@ import re
 import sys
 from pathlib import Path
 
-from chronosgraph.config import get_settings
-from chronosgraph.db.connection import connect
+from histosearch.config import get_settings
+from histosearch.db.connection import connect
 
 CHECKS_PATH = Path(get_settings().repo_root) / "db" / "checks" / "invariants.sql"
 _NAME_RE = re.compile(r"^--\s*name:\s*(\S+).*$", re.MULTILINE)

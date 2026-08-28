@@ -2,8 +2,8 @@
 
 import re
 
-from chronosgraph.config import get_settings
-from chronosgraph.db.migrate import migration_files
+from histosearch.config import get_settings
+from histosearch.db.migrate import migration_files
 
 REQUIRED_TABLES = {
     "documents",

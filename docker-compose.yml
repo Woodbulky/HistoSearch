@@ -3,20 +3,20 @@
 services:
   db:
     image: pgvector/pgvector:pg16
-    container_name: chronosgraph-db
+    container_name: histosearch-db
     environment:
-      POSTGRES_USER: chronos
-      POSTGRES_PASSWORD: chronos
-      POSTGRES_DB: chronosgraph
+      POSTGRES_USER: histosearch
+      POSTGRES_PASSWORD: histosearch
+      POSTGRES_DB: histosearch
     ports:
       - "5433:5432"
     volumes:
-      - chronos_pgdata:/var/lib/postgresql/data
+      - histosearch_pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U chronos -d chronosgraph"]
+      test: ["CMD-SHELL", "pg_isready -U histosearch -d histosearch"]
       interval: 5s
       timeout: 5s
       retries: 20
 
 volumes:
-  chronos_pgdata:
+  histosearch_pgdata:

@@ -1,10 +1,10 @@
-# CLAUDE.md — ChronosGraph
+# CLAUDE.md — HistoSearch
 
 ## 0. HOW CLAUDE CODE MUST OPERATE
 
-You are the implementation engineer for **ChronosGraph**.
+You are the implementation engineer for **HistoSearch**.
 
-ChronosGraph is a research project, not a generic software app. Your job is to implement the system, automate repetitive work, run checks, maintain reproducibility, and report results clearly.
+HistoSearch is a research project, not a generic software app. Your job is to implement the system, automate repetitive work, run checks, maintain reproducibility, and report results clearly.
 
 The human researcher owns:
 - research questions
@@ -61,7 +61,7 @@ This rule is mandatory.
 
 # 1. WHAT WE ARE BUILDING
 
-ChronosGraph is an academic historical research system for evidence-grounded question answering over the Indian Independence and Partition period.
+HistoSearch is an academic historical research system for evidence-grounded question answering over the Indian Independence and Partition period.
 
 It does six major things:
 
@@ -126,7 +126,7 @@ Can a shared historical representation support English and Hindi evidence and im
 
 ## Contribution A — Conflict classification
 
-When claims conflict, ChronosGraph must not automatically select the newest claim.
+When claims conflict, HistoSearch must not automatically select the newest claim.
 
 The supported classification is:
 
@@ -1247,7 +1247,7 @@ Zero-shot general LLM
         vs
 Off-the-shelf baseline
         vs
-Fine-tuned ChronosGraph classifier
+Fine-tuned HistoSearch classifier
 ```
 
 ### Completion gate
@@ -1319,14 +1319,14 @@ Mandatory systems:
 1. LLM only
 2. LLM + vector/lexical retrieval
 3. Graph-assisted system
-4. ChronosGraph
-5. ChronosGraph + fine-tuned classifier
+4. HistoSearch
+5. HistoSearch + fine-tuned classifier
 ```
 
 Mandatory research comparison:
 
 ```text
-ChronosGraph with contested-preserving classification
+HistoSearch with contested-preserving classification
             VS
 same system with recency-wins classification
 ```
@@ -1499,7 +1499,7 @@ Maintain this file continuously.
 Recommended structure:
 
 ```yaml
-project: ChronosGraph
+project: HistoSearch
 
 current_phase: 0
 

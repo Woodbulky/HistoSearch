@@ -1,4 +1,4 @@
-# PROJECT_STATE.md — ChronosGraph
+# PROJECT_STATE.md — HistoSearch
 
 This file records verified project progress for Claude Code.
 
@@ -11,7 +11,8 @@ This file records verified project progress for Claude Code.
 ## Phase status
 
 ```text
-Phase 0  Research + environment foundation       [x] COMPLETE (2026-08-28)
+Phase 0  Research + environment foundation       [x] COMPLETE (2026-08-28,
+                                                     re-verified 2026-08-29)
 Phase 1  Corpus acquisition                       [ ] BLOCKED — source approval pending
 Phase 2  Parsing + cleaning + passages            [ ] NOT STARTED
 Phase 3  Claim/entity/event extraction             [ ] NOT STARTED
@@ -68,7 +69,8 @@ Multilingual dataset            [ ] pending
 Final evaluation results        [ ] pending
 API                             [ ] pending
 Frontend                        [ ] pending
-Database schema                 [x] applied and verified (5 migrations, 2026-08-28)
+Database schema                 [x] applied and verified (5 migrations;
+                                    re-applied from scratch 2026-08-29)
 Database snapshot               [ ] pending
 Demo deployment                 [ ] pending
 ```
@@ -77,24 +79,47 @@ Demo deployment                 [ ] pending
 
 - Current phase: 0 complete; Phase 1 not started
 - Last completed milestone: Phase 0 environment foundation (2026-08-28)
-- Last verified commit: 0d6f0b9 (main) — Phase 0 scaffold
+- Last verified commit: see git log (rename commit on main, 2026-08-29);
+  Phase 0 scaffold was 0d6f0b9
 - Last verified dataset snapshot: none (no corpus acquired yet)
 - Last model version: none (no model used yet)
 - Last evaluation run: none
 
-Verified by execution on 2026-08-28:
+Re-verified by execution on 2026-08-29, after the ChronosGraph -> HistoSearch
+rename and a from-scratch database recreation:
 
 ```text
-uv run chronos migrate   5 migrations applied (0001..0005)
-uv run chronos check     6/6 research invariant checks OK
-uv run chronos doctor    overall: READY
-uv run pytest            19 passed, 0 failed
-uv run ruff check .      clean
+uv run histosearch migrate    5 migrations applied (0001..0005) on a fresh volume
+uv run histosearch check      6/6 research invariant checks OK
+uv run histosearch doctor     overall: READY
+uv run pytest                 19 passed, 0 failed
+uv run ruff check .           clean
+uv run ruff format --check .  31 files already formatted
 ```
 
 Environment: Python 3.11.15 via uv, PostgreSQL 16 + pgvector in Docker
-(container chronosgraph-db, localhost:5433), git remote
+(container histosearch-db, database/role histosearch, localhost:5433), git remote
 https://github.com/Woodbulky/HistoSearch.git
+
+## Rename record — ChronosGraph -> HistoSearch (2026-08-29)
+
+The project was scaffolded under the working name ChronosGraph and renamed before
+Phase 1, at the researcher's direction. No corpus had been acquired.
+
+Renamed: project/product name in all documentation; Python package
+chronosgraph -> histosearch (git mv, history preserved); CLI chronos -> histosearch;
+distribution name; env prefix CHRONOS_ -> HISTOSEARCH_; Docker container, volume,
+Postgres role and database name.
+
+Not renamed, deliberately: migration filenames and migration SQL (byte-identical,
+verified by `git diff` showing zero changes under db/migrations/, so the recorded
+sha256 migration guard still matches); all table, column, enum, type and index
+names; the four conflict labels; source identifiers uk_hansard and cad_india;
+research terminology.
+
+The Docker volume was recreated because the Postgres role and database name
+changed. The database held only schema, no research data, and was re-derived
+deterministically by re-running the same unchanged migrations.
 
 ## Current blockers
 

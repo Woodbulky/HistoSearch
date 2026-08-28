@@ -1,4 +1,4 @@
-"""Project configuration. Every value is overridable via CHRONOS_* env vars or .env."""
+"""Project configuration. Every value is overridable via HISTOSEARCH_* env vars or .env."""
 
 from __future__ import annotations
 
@@ -13,13 +13,13 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_prefix="CHRONOS_",
+        env_prefix="HISTOSEARCH_",
         env_file=".env",
         env_file_encoding="utf-8",
         extra="ignore",
     )
 
-    database_url: str = "postgresql://chronos:chronos@localhost:5433/chronosgraph"
+    database_url: str = "postgresql://histosearch:histosearch@localhost:5433/histosearch"
 
     data_dir: Path = Path("data")
     cache_dir: Path = Path("data/cache")

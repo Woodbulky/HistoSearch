@@ -3,7 +3,7 @@
 Running record of the system as actually implemented, for anyone (human or model)
 picking the project up cold. Updated at the end of every completed phase.
 
-Last updated: 2026-08-28 — end of Phase 0.
+Last updated: 2026-08-29 — end of Phase 0, after the HistoSearch rename.
 
 ---
 
@@ -12,9 +12,10 @@ Last updated: 2026-08-28 — end of Phase 0.
 ### What exists now
 
 **Repository**: git initialised, remote `origin` =
-`https://github.com/Woodbulky/HistoSearch.git`. The GitHub repository is named
-*HistoSearch*; the research system is named *ChronosGraph* per `CLAUDE.md`, and the
-Python package is `chronosgraph`.
+`https://github.com/Woodbulky/HistoSearch.git`. Project, repository, Python package
+and CLI all use the name **HistoSearch**. The project was briefly called ChronosGraph
+during initial scaffolding; that name was retired before Phase 1 (see the rename note
+at the end of this section).
 
 **Python environment**: `uv`-managed, `requires-python >= 3.11`, resolved to Python
 3.11.15 in `.venv`. Runtime deps: pydantic v2, pydantic-settings, psycopg 3,
@@ -23,7 +24,7 @@ pytest-cov, ruff, mypy. No LangChain/LlamaIndex, no paid API dependency — as r
 by `CLAUDE.md` §7.
 
 **Database**: PostgreSQL 16 with pgvector, run locally via `docker-compose.yml`
-(image `pgvector/pgvector:pg16`, container `chronosgraph-db`, host port **5433** to
+(image `pgvector/pgvector:pg16`, container `histosearch-db`, host port **5433** to
 avoid clashing with any existing local Postgres). The local database is the source of
 truth; Supabase is reserved for the final read-only demo only.
 
@@ -57,11 +58,11 @@ The schema encodes the research rules rather than leaving them to convention:
 - `llm_cache` is keyed by provider+model+prompt_version+input_hash; `extraction_failures`
   and `stage_counts` exist so failures and row loss are reported, not discarded (§12, invariant 15).
 
-**Migration runner** (`src/chronosgraph/db/migrate.py`): applies SQL files in filename
+**Migration runner** (`src/histosearch/db/migrate.py`): applies SQL files in filename
 order, records each in `schema_migrations` with a sha256, and refuses to proceed if an
 already-applied migration file was edited — protecting reproducibility of the DB state.
 
-**Invariant checks** (`db/checks/invariants.sql`, run by `chronos check`): six named
+**Invariant checks** (`db/checks/invariants.sql`, run by `histosearch check`): six named
 queries that must each return zero rows — claims without evidence, evidence spans
 outside their passage, invalid passage spans, event dates more precise than their
 declared granularity, contradictions missing a claim, dangling graph nodes. Currently
@@ -73,11 +74,11 @@ sources — UK Hansard and Constituent Assembly Debates as `pending_approval`, a
 NAI/Abhilekh Patal, Nehru Archive, Gandhi Heritage Portal as `planned`. Approval status
 is never changed by code.
 
-**Configuration** (`src/chronosgraph/config/settings.py`): pydantic-settings with
-`CHRONOS_` env prefix and `.env` support; `redacted()` strips the API key and DB
+**Configuration** (`src/histosearch/config/settings.py`): pydantic-settings with
+`HISTOSEARCH_` env prefix and `.env` support; `redacted()` strips the API key and DB
 credentials so configuration can be logged or exposed via `/metadata` safely.
 
-**CLI** (`chronos`): `doctor`, `migrate`, `check`, `sources`, `config`.
+**CLI** (`histosearch`): `doctor`, `migrate`, `check`, `sources`, `config`.
 
 **Tests**: 19 passing. Config/redaction, registry validation and research-scope
 assertions, migration ordering and data-model coverage, the four conflict labels, the
@@ -89,9 +90,9 @@ automatically when no database is running. `ruff check` clean.
 ### Verified by running
 
 ```text
-uv run chronos migrate   → 5 migrations applied
-uv run chronos check     → 6/6 invariants OK
-uv run chronos doctor    → overall: READY
+uv run histosearch migrate   → 5 migrations applied
+uv run histosearch check     → 6/6 invariants OK
+uv run histosearch doctor    → overall: READY
 uv run pytest            → 19 passed
 uv run ruff check .      → All checks passed
 ```
@@ -102,7 +103,29 @@ No downloaded sources, no `data/manifest.jsonl`, no parsers, no embeddings, no
 extraction, no retrieval, no classifier, no API, no frontend. Those belong to Phases
 1–11 and were not started, per the phase-gate rule.
 
-### Open item carried forward
+### Rename: ChronosGraph → HistoSearch (2026-08-29, before Phase 1)
 
-The repository is named *HistoSearch* while the research system is *ChronosGraph*.
-Harmless, but worth a deliberate decision before anything is published.
+The project was scaffolded under the working name *ChronosGraph* and renamed to
+**HistoSearch** at the researcher's direction before any corpus was acquired.
+
+Renamed: project and product name throughout `CLAUDE.md`, `README.md`,
+`PROJECT_STATE.md` and this file; Python package `chronosgraph` → `histosearch`
+(directory moved with `git mv`, so history follows the files); CLI command
+`chronos` → `histosearch`; distribution name in `pyproject.toml`; environment
+variable prefix `CHRONOS_` → `HISTOSEARCH_`; Docker container `chronosgraph-db` →
+`histosearch-db`, volume `chronos_pgdata` → `histosearch_pgdata`, and the Postgres
+role/database `chronos`/`chronosgraph` → `histosearch`.
+
+Deliberately NOT renamed: every migration filename and every byte of migration SQL
+(they contained no project name, so migration history and the recorded sha256 guard
+are untouched); all table, column, enum, type and index names; the four conflict
+labels; research terminology and source identifiers such as `uk_hansard` and
+`cad_india`.
+
+Because the Postgres role and database name changed, the local Docker volume was
+recreated and all five migrations re-applied from scratch — a clean re-derivation
+that lost nothing, since the database held only schema and no research data.
+
+### Open items carried forward
+
+None.

@@ -1,6 +1,6 @@
 import pytest
 
-from chronosgraph.db.connection import database_available
+from histosearch.db.connection import database_available
 
 
 @pytest.fixture(scope="session")

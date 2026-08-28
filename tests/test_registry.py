@@ -3,8 +3,8 @@
 import pytest
 from pydantic import ValidationError
 
-from chronosgraph.sources import load_registry
-from chronosgraph.sources.registry import SourceRegistry
+from histosearch.sources import load_registry
+from histosearch.sources.registry import SourceRegistry
 
 
 def test_registry_loads_and_validates():

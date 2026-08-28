@@ -1,5 +1,5 @@
 -- Research invariant checks (CLAUDE.md §9). Each query must return ZERO rows.
--- Run with: python -m chronosgraph.db.check
+-- Run with: python -m histosearch.db.check
 
 -- name: claims_without_evidence (invariant 1)
 SELECT c.id AS claim_id

@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from chronosgraph.config import Settings, get_settings
+from histosearch.config import Settings, get_settings
 
 
 def test_repo_root_contains_claude_md():
@@ -16,7 +16,7 @@ def test_derived_paths_are_absolute():
 def test_redacted_hides_api_key_and_credentials():
     s = Settings(
         llm_api_key="secret-value",
-        database_url="postgresql://user:pw@localhost:5433/chronosgraph",
+        database_url="postgresql://user:pw@localhost:5433/histosearch",
     )
     red = s.redacted()
     assert red["llm_api_key"] == "***set***"

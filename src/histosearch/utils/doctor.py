@@ -10,7 +10,7 @@ import shutil
 import subprocess
 import sys
 
-from chronosgraph.config import get_settings
+from histosearch.config import get_settings
 
 
 def _tool(name: str) -> tuple[bool, str]:
@@ -54,11 +54,11 @@ def report() -> bool:
         ok = ok and exists
 
     print("== database")
-    from chronosgraph.db.connection import database_available
+    from histosearch.db.connection import database_available
 
     if database_available():
-        from chronosgraph.db.connection import connect
-        from chronosgraph.db.migrate import applied_versions, migration_files
+        from histosearch.db.connection import connect
+        from histosearch.db.migrate import applied_versions, migration_files
 
         with connect(autocommit=True) as conn:
             conn.execute(
@@ -78,7 +78,7 @@ def report() -> bool:
 
     print("== corpus")
     try:
-        from chronosgraph.sources import load_registry
+        from histosearch.sources import load_registry
 
         reg = load_registry()
         print(f"  registry         ok ({len(reg.sources)} sources)")

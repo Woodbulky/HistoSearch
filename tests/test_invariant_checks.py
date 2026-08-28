@@ -1,4 +1,4 @@
-from chronosgraph.db.check import CHECKS_PATH, parse_checks, run_checks
+from histosearch.db.check import CHECKS_PATH, parse_checks, run_checks
 
 EXPECTED = {
     "claims_without_evidence",

@@ -1,6 +1,6 @@
 # Source registry — human-owned approval record.
 # Claude Code MUST NOT change approval_status. Only the researcher approves a source.
-project: ChronosGraph
+project: HistoSearch
 
 study_window:
   start: "1947-08-01"

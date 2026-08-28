@@ -49,7 +49,7 @@ class SourceRegistry(BaseModel):
 
 
 def load_registry(path: Path | None = None) -> SourceRegistry:
-    from chronosgraph.config import get_settings
+    from histosearch.config import get_settings
 
     path = path or get_settings().registry_path
     data = yaml.safe_load(path.read_text(encoding="utf-8"))

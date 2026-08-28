@@ -3,8 +3,8 @@
 import psycopg
 import pytest
 
-from chronosgraph.db.connection import connect
-from chronosgraph.db.migrate import migrate
+from histosearch.db.connection import connect
+from histosearch.db.migrate import migrate
 
 pytestmark = pytest.mark.db
 
