@@ -77,7 +77,7 @@ Demo deployment                 [ ] pending
 
 - Current phase: 0 complete; Phase 1 not started
 - Last completed milestone: Phase 0 environment foundation (2026-08-28)
-- Last verified commit: see git log; Phase 0 scaffold commit on branch main
+- Last verified commit: 0d6f0b9 (main) — Phase 0 scaffold
 - Last verified dataset snapshot: none (no corpus acquired yet)
 - Last model version: none (no model used yet)
 - Last evaluation run: none
